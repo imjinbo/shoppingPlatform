@@ -1,0 +1,26 @@
+html{
+	height: 100%;
+}
+
+body{
+	height: 100%;
+	margin: 0;
+	background-color: #ecefff;
+}
+
+#app{
+	//根
+	position: relative;
+	max-width: 750px;
+	background-color:#fff;
+	margin: 0 auto;
+	border: 1px solid #d3d3d3;
+	height: 100%;
+}
+
+#bottomBar{
+	    position: fixed;
+	    bottom: 0;
+	    max-width: 750px;
+	    margin: 0 auto;
+}
