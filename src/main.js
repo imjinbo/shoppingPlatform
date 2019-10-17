@@ -3,18 +3,50 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
-import './assets/material-icons.css' //icon加载 来自掘金
+import { 
+	Button,
+	Tabbar,
+	TabbarItem,
+	NavBar,
+	Icon,
+	Row, Col,
+	Tab, Tabs,
+} from 'vant';
+Vue.use(Button)
+.use(Tabbar)
+.use(TabbarItem)
+.use(NavBar)
+.use(Icon)
+.use(Row)
+.use(Col)
+.use(Tab)
+.use(Tabs)
+// .use(Tabbar)
+// .use(Tabbar)
+// .use(Tabbar)
+// .use(Tabbar)
+// .use(Tabbar)
+// .use(Tabbar)
+// .use(Tabbar)
+// .use(Tabbar)
+// .use(Tabbar)
+// .use(Tabbar)
+// .use(Tabbar)
+// .use(Tabbar)
+// .use(Tabbar)
+// .use(Tabbar)
+// .use(Tabbar)
+// .use(Tabbar)
+// .use(Tabbar)
+// .use(Tabbar)
+// .use(Tabbar)
 
-import MuseUI from 'muse-ui' //muse-ui加载
-import 'muse-ui/dist/muse-ui.css';
 
 import "./styles/index.scss" //base Css 自定义css，可以覆盖muse-ui的样式
-
 
 //todo vue基础框架  入口文件  router  vuex
 
 Vue.config.productionTip = false;
-Vue.use(MuseUI) //muse.css使用
 
 new Vue({
   router,
