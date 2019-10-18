@@ -5,12 +5,14 @@ import store from './store'
 
 import { 
 	Button,
-	Tabbar,
-	TabbarItem,
-	NavBar,
 	Icon,
+	Field ,
+	Tabbar, TabbarItem,
+	NavBar,
 	Row, Col,
 	Tab, Tabs,
+	Swipe, SwipeItem,
+	Skeleton
 } from 'vant';
 Vue.use(Button)
 .use(Tabbar)
@@ -21,10 +23,10 @@ Vue.use(Button)
 .use(Col)
 .use(Tab)
 .use(Tabs)
-// .use(Tabbar)
-// .use(Tabbar)
-// .use(Tabbar)
-// .use(Tabbar)
+.use(Swipe)
+.use(SwipeItem)
+.use(Field )
+.use(Skeleton)
 // .use(Tabbar)
 // .use(Tabbar)
 // .use(Tabbar)
