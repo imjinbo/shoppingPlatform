@@ -12,7 +12,8 @@ import {
 	Row, Col,
 	Tab, Tabs,
 	Swipe, SwipeItem,
-	Skeleton
+	Skeleton,
+	Lazyload
 } from 'vant';
 Vue.use(Button)
 .use(Tabbar)
@@ -27,7 +28,7 @@ Vue.use(Button)
 .use(SwipeItem)
 .use(Field )
 .use(Skeleton)
-// .use(Tabbar)
+.use(Lazyload)
 // .use(Tabbar)
 // .use(Tabbar)
 // .use(Tabbar)

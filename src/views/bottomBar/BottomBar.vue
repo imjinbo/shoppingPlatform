@@ -1,11 +1,10 @@
 <template>
-	<van-tabbar class='vansTabbar' v-model="active" active-color='#ff6700' inactive-color="#999">
-	  <van-tabbar-item icon="wap-home-o">首页</van-tabbar-item>
-	  <van-tabbar-item icon="apps-o">分类</van-tabbar-item>
-	  <van-tabbar-item icon="cart-o">购物车</van-tabbar-item>
-	  <van-tabbar-item icon="manager-o">我的</van-tabbar-item>
+	<van-tabbar class='vansTabbar' active-color='#ff6700' inactive-color="#999" route>
+	  <van-tabbar-item to='/' icon="wap-home-o">首页</van-tabbar-item>
+	  <van-tabbar-item to='/sort' icon="apps-o">分类</van-tabbar-item>
+	  <van-tabbar-item to='/shoppingCart' icon="cart-o">购物车</van-tabbar-item>
+	  <van-tabbar-item to='/personalCenter' icon="manager-o">我的</van-tabbar-item>
 	</van-tabbar>
-	
 </template>
 
 <script>
@@ -14,7 +13,7 @@
 		name: 'bottomBar',
 		data(){
 			return {
-				active:0
+				name:"personalCenter"
 			}
 		}
 	}
