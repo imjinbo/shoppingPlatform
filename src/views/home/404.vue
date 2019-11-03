@@ -1,8 +1,9 @@
 <template>
+	
 		<div class="page404">
 			<div  class='icon404'>
 				<van-icon name="warn-o" size='100px' color='rgb(237, 91, 0)'/>
-				<p class="line404">当前页面已丢失，请检查</p>
+				<p class="line404">当前页面未完成或不存在</p>
 				<router-link to='/'>
 					<van-button size='small' type="primary">返回首页</van-button>
 				</router-link>

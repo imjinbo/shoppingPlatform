@@ -1,13 +1,12 @@
 import axios from "axios"
 
-export default function() {
+export default function(data) {
 	return axios({
-		method: 'post',
-		url: "/api/v1/home/page",
+		method: data.method || 'GET',
+		url: data.url,
 		headers: {
-			'Content-Type': 'application/x-www-form-urlencoded',
+			'Content-Type': data.header || 'application/x-www-form-urlencoded',
 		}
-
 	})
 }
 

@@ -3,6 +3,8 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+import mockData from './mock/index'
+
 import { 
 	Button,
 	Icon,
@@ -13,13 +15,15 @@ import {
 	Tab, Tabs,
 	Swipe, SwipeItem,
 	Skeleton,
-	Lazyload
+	Lazyload,
+	Cell,
+	CellGroup
 } from 'vant';
 Vue.use(Button)
 .use(Tabbar)
 .use(TabbarItem)
 .use(NavBar)
-.use(Icon)
+.use(Icon) 
 .use(Row)
 .use(Col)
 .use(Tab)
@@ -29,8 +33,8 @@ Vue.use(Button)
 .use(Field )
 .use(Skeleton)
 .use(Lazyload)
-// .use(Tabbar)
-// .use(Tabbar)
+.use(Cell)
+.use(CellGroup)
 // .use(Tabbar)
 // .use(Tabbar)
 // .use(Tabbar)

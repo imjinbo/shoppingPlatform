@@ -23,7 +23,7 @@
 <script>
 	import Swiper from '@/components/Swiper.vue'
 	import indexCont from './components/index/indexCont.vue'
-	import request from '@/utils/request'
+	import { getIndexData } from '@/api/index'
 	
 	export default {
 		name: "indexTabs",
@@ -43,7 +43,7 @@
 		},
 		mounted(){
 			const _this = this;
-			request().then(res=>{
+			getIndexData().then(res=>{
 				this.loading = false;
 				//获取到远程数据
 				//1.先将tabs标题展示出来
