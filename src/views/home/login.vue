@@ -11,6 +11,7 @@
 			    v-model="username"
 			    clearable
 			    placeholder="邮箱/手机号码"
+				@keyup.enter='loginFn'
 			  />
 			  <van-field
 				class='field'
@@ -18,33 +19,59 @@
 			    type="password"
 			    placeholder="密码"
 				right-icon='eye-o'
+				@keyup.enter='loginFn'
 			  />
 			</van-cell-group>
 		</section>
 		<section class="btnCont">
-			<van-button class='btn' size='large ' type="primary" color='#ff6700'>登录</van-button>
+			<van-button 
+			class='btn' 
+			size='large ' 
+			type="primary" 
+			color='#ff6700' 
+			loading-text='验证中...'
+			:loading=loginBtn
+			:disabled=loginBtn
+			
+			@click='loginFn'>登录</van-button>
 			<van-button class='btn' size='large ' plain >注册</van-button>
 		</section>
-		<van-button class='returnBtn' @click='returnFn' size='small' plain icon="arrow-left" color='rgb(255, 103, 0)'/>
+		<van-button class='returnBtn' @click='$router.go(-1)' size='small' plain icon="arrow-left" color='rgb(255, 103, 0)'/>
 	</div>
 </template>
 
 <script>
 	import logo from "@/assets/useLogo.vue"
+	import { loginXhr } from "@/api/login"
 	export default {
 		name:"login",
 		data(){
 			return {
-				username:"imjinbo",
-				password:'imjinbo'
+				username:"admin",
+				password:'admin',
+				loginBtn:false
 			}
 		},
-		components:{
-			logo
-		},
+		components:{ logo },
 		methods:{
-			returnFn(){
-				this.$router.go(-1)
+			loginFn(){
+				
+				const sendData = {
+					username : this.username,
+					password : this.password
+				},_this = this;
+				
+				this.loginBtn = true;
+					loginXhr(sendData).then(res=>{
+						this.loginBtn = false;
+						const reqDate = res.data;
+						_this.$notify({ 
+							color:"#fff",
+							background:reqDate.rtnCode === 200 ? (_this.username === 'imjinbo' ? '#1989fa' :"#ff6700") : '#ff2841',
+							message: res.data.message 
+						});
+					})
+				
 			}
 		}
 	}

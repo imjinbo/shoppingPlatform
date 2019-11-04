@@ -1,9 +1,9 @@
 import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
+import App from '@/App.vue'
+import router from '@/router'
+import store from '@/store/store'
 
-import mockData from './mock/index'
+import mockData from '@/mock/index'
 
 import { 
 	Button,
@@ -17,7 +17,8 @@ import {
 	Skeleton,
 	Lazyload,
 	Cell,
-	CellGroup
+	CellGroup,
+	Notify
 } from 'vant';
 Vue.use(Button)
 .use(Tabbar)
@@ -35,7 +36,8 @@ Vue.use(Button)
 .use(Lazyload)
 .use(Cell)
 .use(CellGroup)
-// .use(Tabbar)
+.use(Notify)
+// .use(Notify)
 // .use(Tabbar)
 // .use(Tabbar)
 // .use(Tabbar)

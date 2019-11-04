@@ -1,5 +1,14 @@
 import request from "@/utils/request"
 
+// export function demo(data){
+// 	return request({
+// 		url:"/login",
+// 		method:"post",
+// 		parmas:{ data },
+// 		data
+// 	})
+// }
+
 export function getIndexData() {
 	return request({
 		method: 'post',
@@ -16,3 +25,5 @@ export function testFn(){
 		url:"/api/vehicle"
 	})
 }
+
+
