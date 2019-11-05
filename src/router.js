@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// import Home from './views/home/Home.vue'
+import Home from './views/home/Home.vue'
 
 Vue.use(Router)
 
-export default new Router({
+const routers = new Router({
   routes: [
     {
       path: '/',
@@ -39,3 +39,11 @@ export default new Router({
 	}
   ]
 })
+
+routers.beforeEach((to,from,next)=>{
+	// debugger
+	next()
+})
+
+
+export default routers;

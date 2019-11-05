@@ -1,4 +1,6 @@
 import Mock from 'mockjs'
+import adminLogo from "@/assets/adminLogo.vue"
+import imjinboLogo from "@/assets/imjinboLogo.vue"
 
 //配置step，拦截Ajax时候的行为
 Mock.setup({
@@ -12,59 +14,36 @@ var data = Mock.mock({
         'id|+1': 1
     }]
 })
-
-const vehicle = Mock.mock(
- '/api/vehicle','post', (req, res) =>{
-    return  {
-        code:200,
-        data:[{
-            id:1,
-            licNumber:'陕A79898',
-            color:1,
-            buyTime:'2017-04-01'
  
-        },{
-            id:1,
-            licNumber:'陕A79898',
-            color:1,
-            buyTime:'2017-04-01'
- 
-        }],
-        message:'查询成功'
-    }
-} )
-
- const user = Mock.mock(
- '/api/user','get', (req, res) =>{
-    return  {
-        code:200,
-        data:{
-            id:1,
-           sex:1,
-            age:25,
-            createTime:'2017-04-01'
-        },
-        message:'查询成功'
-    }
-} )
- 
- // 1.setToken。怎么设置的
- // 2.store下登录的时候，成功后设置token。查看从哪个接口发送的
- // 3.loginByUsername。去到mock中查看，发现就是写死的数据
- 
+ const rtnMessage = {
+	 imjinbo:{
+		 username:"imjinbo",
+		 token:"imjinbo`sToken",
+		 logo:imjinboLogo
+	 },
+	 admin:{
+		 username:"admin",
+		 token:"admin`sToken",
+		 logo:adminLogo
+	 }
+ }
  
  //登录
 const login = Mock.mock(
 	'/login','post',(req,res)=>{
-		
 		//协议一定是小写
 		const loginData = JSON.parse(req.body);
 		//已在前台做了是否为空判断，这里不做处理
+		
+		//根据传递进来的用户名称来查询是否有这个人的信息，返回token
+		const user = rtnMessage[loginData.username].token;
+		
 		if(loginData.username == 'imjinbo'){
 			
 			return loginData.password === "imjinbo" ? {
 				rtnCode:200,
-				message:"是波波波波波波波波波波波波，欢迎波！"
+				message:"是波波波波波波波波波波波波，欢迎波！",
+				user
 			} : {
 				rtnCode:400,
 				message:"密码错误!"
@@ -72,7 +51,8 @@ const login = Mock.mock(
 		}else if(loginData.username == 'admin'){
 			return loginData.password === "admin" ? {
 				rtnCode:200,
-				message:"登录成功！"
+				message:"登录成功！",
+				user
 			} : {
 				rtnCode:400,
 				message:"密码错误!"
@@ -90,4 +70,10 @@ const login = Mock.mock(
 	}
 )
 
- export default { vehicle,user,data,login }
+const getuserInfo = Mock.mock(
+	'/getuserinfo','get',req=>{
+		debugger
+	}
+)
+
+ export default { login }

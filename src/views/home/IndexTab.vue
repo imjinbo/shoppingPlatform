@@ -6,7 +6,8 @@
 			class='vanTabs' 
 			color='rgb(237, 91, 0)' 
 			background="#f2f2f2" 
-			title-active-color='rgb(237, 91, 0)' 
+			title-active-color='rgb(237, 91, 0)'
+			animated
 			:model="active"
 			:swipeThreshold=swipeThreshold
 		  >

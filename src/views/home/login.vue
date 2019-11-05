@@ -34,7 +34,7 @@
 			:disabled=loginBtn
 			
 			@click='loginFn'>登录</van-button>
-			<van-button class='btn' size='large ' plain >注册</van-button>
+			<van-button class='btn' size='large ' plain @click='resgistered'>注册</van-button>
 		</section>
 		<van-button class='returnBtn' @click='$router.go(-1)' size='small' plain icon="arrow-left" color='rgb(255, 103, 0)'/>
 	</div>
@@ -42,7 +42,7 @@
 
 <script>
 	import logo from "@/assets/useLogo.vue"
-	import { loginXhr } from "@/api/login"
+	
 	export default {
 		name:"login",
 		data(){
@@ -55,23 +55,30 @@
 		components:{ logo },
 		methods:{
 			loginFn(){
-				
+				this.loginBtn = true;
 				const sendData = {
 					username : this.username,
 					password : this.password
-				},_this = this;
-				
-				this.loginBtn = true;
-					loginXhr(sendData).then(res=>{
-						this.loginBtn = false;
-						const reqDate = res.data;
-						_this.$notify({ 
-							color:"#fff",
-							background:reqDate.rtnCode === 200 ? (_this.username === 'imjinbo' ? '#1989fa' :"#ff6700") : '#ff2841',
-							message: res.data.message 
-						});
-					})
-				
+				};
+				/* 
+				* 1. 调用登录方法传送账户密码，接着去触发vuex中的userLogin方法
+				* 2. 数据返回之后，判断登录是否有问题
+				*/
+				this.$store.dispatch("user/userLogin",sendData)
+				.then((res)=>{
+					this.loginBtn = false;
+					const REQDATA = res.data;
+					this.$notify({ 
+						color:"#fff",
+						background:REQDATA.rtnCode === 200 ? (this.username === 'imjinbo' ? '#1989fa' :"#ff6700") : '#ff2841',
+						message: REQDATA.message
+					});
+				})
+			},
+			resgistered(){
+				this.$store.dispatch("test").then(res=>{
+					
+				})
 			}
 		}
 	}
