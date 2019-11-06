@@ -1,16 +1,19 @@
 import vuex from "vuex"
-import { loginXhr } from "@/api/login"
+import { loginXhr,getUserInfo } from "@/api/login"
 import { setCookie,setLimitCookie } from "@/utils/mockCk"
 
 export default {
 	namespaced: true,//开启命名空间
 	state:{
 		alreadyToken:'',
-		userInfo:[]
+		userInfo:{}
 	},
 	mutations:{
 		userLogin(state,token){
 			state.alreadyToken = token
+		},
+		setUserInfo(state,rtnData){
+			state.userInfo = rtnData;
 		}
 	},
 	actions:{
@@ -29,16 +32,36 @@ export default {
 					if(REQDATA.rtnCode === 200){
 						//在cookie中存入所成功登录的token
 						store.commit("userLogin",setCookie('alreadyLoginUser',REQDATA.user))
+						
+						//登陆成功之后立刻通过token去获取个人用户信息，之后存入vuex
 						resolve(res);
+						store.dispatch('getUserInfo',REQDATA.user)
+						.then((res)=>{console.log(res)})
+						.catch((rej)=>{console.log(rej)})
+						
 					}else {
 						//未通过的情况下，只得以先用这样来抛出结果
 						resolve(res);
 					}
 				})
 			})
+		},
+		getUserInfo({state,commit},userToken){
+			return new Promise((resolve,reject)=>{
+				getUserInfo(userToken).then(res=>{
+					resolve(res.data)
+					commit('setUserInfo',res.data);
+					sessionStorage.setItem('userInfo',JSON.stringify(res.data))
+				}).catch(()=>{
+					reject("未获取到该用户信息")
+				})
+			})
 		}
 	},
 	getters:{
 		//相当于组件中的计算属性
+		getUserInfoer:(store)=>{
+			return store.alreadyToken
+		}
 	}
 }

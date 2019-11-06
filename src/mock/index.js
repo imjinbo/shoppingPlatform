@@ -14,17 +14,27 @@ var data = Mock.mock({
         'id|+1': 1
     }]
 })
+ const rtnToken = {
+ 	 imjinbo:{
+ 		 token:"imjinbo`sToken",
+ 	 },
+ 	 admin:{
+ 		 token:"admin`sToken",
+ 	 }
+ }
  
  const rtnMessage = {
 	 imjinbo:{
-		 username:"imjinbo",
-		 token:"imjinbo`sToken",
-		 logo:imjinboLogo
+		 username:"大金波",
+		 level:0,
+		 logo:imjinboLogo,
+		 id:'975636767'
 	 },
 	 admin:{
-		 username:"admin",
-		 token:"admin`sToken",
-		 logo:adminLogo
+		 username:"管理员",
+		 level:1,
+		 logo:adminLogo,
+		 id:'860356609'
 	 }
  }
  
@@ -36,7 +46,7 @@ const login = Mock.mock(
 		//已在前台做了是否为空判断，这里不做处理
 		
 		//根据传递进来的用户名称来查询是否有这个人的信息，返回token
-		const user = rtnMessage[loginData.username].token;
+		const user = rtnToken[loginData.username] && rtnToken[loginData.username].token
 		
 		if(loginData.username == 'imjinbo'){
 			
@@ -71,9 +81,13 @@ const login = Mock.mock(
 )
 
 const getuserInfo = Mock.mock(
-	'/getuserinfo','get',req=>{
-		debugger
+	/getuserinfo\?data\=\S*/,'get',req=>{
+		
+		const userToken = req.url.split("data=")[1];
+		
+		return userToken === "admin`sToken" ? rtnMessage['admin'] :
+		userToken === "admin`sToken" ? rtnMessage['imjinbo'] : false;
 	}
 )
 
- export default { login }
+ export default { login,getuserInfo }

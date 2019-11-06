@@ -1,13 +1,11 @@
 <template>
 	<div style=" margin-bottom: 50px;">
-			<router-link to='/login'>
-				<header class="header">
-					<div><img width="32%" :src="avatar" /></div>
-					<div>
-							<p class="title">登录/注册</p>
-					</div>
-				</header>
-			</router-link>
+			<header class="header" @click='toLogin'>
+				<div><img width="32%" :src="avatar" /></div>
+				<div>
+						<p class="title">登录/注册</p>
+				</div>
+			</header>
 		<div>
 			<!-- 中部 -->
 			<section class="orderCont">
@@ -119,6 +117,12 @@
 		methods:{
 			compuBorder(index2,item){
 				return index2 === 0 && item.list[1];
+			},
+			toLogin(){
+				//检查是否已经登录，如果已经登录则不做反应，未登录继续跳转
+				// this.$store.state.user.userInfo
+				(!JSON.parse(sessionStorage.getItem("userInfo"))) && this.$router.push('login');
+				return;
 			}
 		}
 	}

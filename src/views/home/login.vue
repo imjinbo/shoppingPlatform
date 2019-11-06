@@ -55,30 +55,45 @@
 		components:{ logo },
 		methods:{
 			loginFn(){
+				
 				this.loginBtn = true;
 				const sendData = {
 					username : this.username,
 					password : this.password
-				};
+				},_this = this;
 				/* 
+				* ### 登录相关 ###
 				* 1. 调用登录方法传送账户密码，接着去触发vuex中的userLogin方法
 				* 2. 数据返回之后，判断登录是否有问题
+				* 3. 检验登录是否成功
+				* 	 a. 登录成功。跳转到上一个页面中
+				* 	 b. 登录失败。留在本页面不做处理
 				*/
 				this.$store.dispatch("user/userLogin",sendData)
 				.then((res)=>{
 					this.loginBtn = false;
 					const REQDATA = res.data;
-					this.$notify({ 
+					const isLogin = REQDATA.rtnCode === 200;
+					this.$notify({
 						color:"#fff",
-						background:REQDATA.rtnCode === 200 ? (this.username === 'imjinbo' ? '#1989fa' :"#ff6700") : '#ff2841',
+						background: isLogin ? (this.username === 'imjinbo' ? '#1989fa' :"#ff6700") : '#ff2841',
 						message: REQDATA.message
 					});
+					
+					
+					if(isLogin){
+						//login 
+						const urlJudge = this.$route.query.where;
+						const toWhere = urlJudge ? this.$router.push(urlJudge) : '/personalcenter';
+						this.$router.push(toWhere)
+					}
 				})
 			},
 			resgistered(){
-				this.$store.dispatch("test").then(res=>{
+				console.log('注册')
+				// this.$store.dispatch("test").then(res=>{
 					
-				})
+				// })
 			}
 		}
 	}
