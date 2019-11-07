@@ -18,7 +18,8 @@ import {
 	Lazyload,
 	Cell,
 	CellGroup,
-	Notify
+	Notify,
+	Toast
 } from 'vant';
 Vue.use(Button)
 .use(Tabbar)
@@ -37,7 +38,7 @@ Vue.use(Button)
 .use(Cell)
 .use(CellGroup)
 .use(Notify)
-// .use(Notify)
+.use(Toast)
 // .use(Tabbar)
 // .use(Tabbar)
 // .use(Tabbar)

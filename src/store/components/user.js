@@ -13,7 +13,11 @@ export default {
 			state.alreadyToken = token
 		},
 		setUserInfo(state,rtnData){
-			state.userInfo = rtnData;
+			state.userInfo = {...rtnData};
+		},
+		loginOut(state){
+			state.userInfo = {};
+			state.alreadyToken = '';
 		}
 	},
 	actions:{
@@ -34,11 +38,10 @@ export default {
 						store.commit("userLogin",setCookie('alreadyLoginUser',REQDATA.user))
 						
 						//登陆成功之后立刻通过token去获取个人用户信息，之后存入vuex
-						resolve(res);
-						store.dispatch('getUserInfo',REQDATA.user)
-						.then((res)=>{console.log(res)})
-						.catch((rej)=>{console.log(rej)})
-						
+						 store.dispatch('getUserInfo',REQDATA.user)
+						 .then((reso)=>{console.log(reso);resolve(res)})
+						 .catch((rej)=>{console.log(rej)})
+						 
 					}else {
 						//未通过的情况下，只得以先用这样来抛出结果
 						resolve(res);
@@ -49,9 +52,9 @@ export default {
 		getUserInfo({state,commit},userToken){
 			return new Promise((resolve,reject)=>{
 				getUserInfo(userToken).then(res=>{
-					resolve(res.data)
-					commit('setUserInfo',res.data);
 					sessionStorage.setItem('userInfo',JSON.stringify(res.data))
+					 resolve(res.data)
+					commit('setUserInfo',res.data);
 				}).catch(()=>{
 					reject("未获取到该用户信息")
 				})

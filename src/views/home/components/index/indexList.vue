@@ -1,7 +1,7 @@
 <template>
 	<div class="liList">
 		<van-row type="flex" justify="space-between">
-			<div v-for="(item,index) in list" :key="item.ad_position_id" class="vanRowDiv">
+			<div v-for="(item,index) in list" :key="item.ad_position_id" class="vanRowDiv" @click="productDetail(item.product_id)">
 				<img width="100%" v-lazy="item.img_url" />
 				<h6 class="h6Sty">{{item.product_name}}</h6>
 				<p class="p1Sty">{{item.product_brief}}</p>
@@ -27,6 +27,11 @@
 		mounted() {
 			const bodyData = this.dataAll.body;
 			this.list = bodyData.items.concat()
+		},
+		methods:{
+			productDetail(productId){
+				this.$router.push('productDetails/' + productId)
+			}
 		}
 		
 	}

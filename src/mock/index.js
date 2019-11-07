@@ -1,6 +1,6 @@
 import Mock from 'mockjs'
-import adminLogo from "@/assets/adminLogo.vue"
-import imjinboLogo from "@/assets/imjinboLogo.vue"
+import admin from "@/assets/admin.png"
+import drago from "@/assets/drago.png"
 
 //配置step，拦截Ajax时候的行为
 Mock.setup({
@@ -27,13 +27,13 @@ var data = Mock.mock({
 	 imjinbo:{
 		 username:"大金波",
 		 level:0,
-		 logo:imjinboLogo,
+		 logo:drago,
 		 id:'975636767'
 	 },
 	 admin:{
 		 username:"管理员",
 		 level:1,
-		 logo:adminLogo,
+		 logo:admin,
 		 id:'860356609'
 	 }
  }
@@ -84,9 +84,11 @@ const getuserInfo = Mock.mock(
 	/getuserinfo\?data\=\S*/,'get',req=>{
 		
 		const userToken = req.url.split("data=")[1];
-		
-		return userToken === "admin`sToken" ? rtnMessage['admin'] :
-		userToken === "admin`sToken" ? rtnMessage['imjinbo'] : false;
+		if(userToken === "admin`sToken"){
+			return rtnMessage['admin'];
+		}else if(userToken === "imjinbo`sToken"){
+			return rtnMessage['imjinbo']
+		}
 	}
 )
 

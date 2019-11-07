@@ -36,12 +36,13 @@
 			@click='loginFn'>登录</van-button>
 			<van-button class='btn' size='large ' plain @click='resgistered'>注册</van-button>
 		</section>
-		<van-button class='returnBtn' @click='$router.go(-1)' size='small' plain icon="arrow-left" color='rgb(255, 103, 0)'/>
+		<rtnBtn />
 	</div>
 </template>
 
 <script>
 	import logo from "@/assets/useLogo.vue"
+	import rtnBtn from "@/components/rtnBtn.vue"
 	
 	export default {
 		name:"login",
@@ -52,7 +53,7 @@
 				loginBtn:false
 			}
 		},
-		components:{ logo },
+		components:{ logo,rtnBtn },
 		methods:{
 			loginFn(){
 				
@@ -76,7 +77,7 @@
 					const isLogin = REQDATA.rtnCode === 200;
 					this.$notify({
 						color:"#fff",
-						background: isLogin ? (this.username === 'imjinbo' ? '#1989fa' :"#ff6700") : '#ff2841',
+						background: isLogin ? '#1989fa' : '#ff2841',
 						message: REQDATA.message
 					});
 					
@@ -85,15 +86,15 @@
 						//login 
 						const urlJudge = this.$route.query.where;
 						const toWhere = urlJudge ? this.$router.push(urlJudge) : '/personalcenter';
-						this.$router.push(toWhere)
+						this.$router.push(toWhere).catch(rej=>rej)
 					}
 				})
 			},
 			resgistered(){
-				console.log('注册')
-				// this.$store.dispatch("test").then(res=>{
-					
-				// })
+				this.$toast({
+					message: '注册功能暂未实现',
+					duration:1000,
+				});
 			}
 		}
 	}
@@ -127,11 +128,5 @@
 			}
 		}
 	}
-	.returnBtn {
-		position: fixed;
-		bottom: 17px;
-		left: 20px;
-		border-radius: 6px;
-		min-width: 30px;
-	}
+	
 </style>
