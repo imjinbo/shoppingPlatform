@@ -1,11 +1,11 @@
 @import "./variable.scss";
 html{
-	height: 100%;
+	height: -webkit-fill-available;
 }
 
 body{
 	box-sizing: border-box;
-	height: 100%;
+	height: -webkit-fill-available;
 	margin: 0;
 	background-color: #ecefff;
 }

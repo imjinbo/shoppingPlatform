@@ -50,3 +50,8 @@
 		// methods:{}
 	}
 </script>
+<style scoped>
+	#app{
+		border:none;
+	}
+</style>

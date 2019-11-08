@@ -15,7 +15,7 @@ const routerInit = new Router({
       components: {
 		  topBar:()=>(import('@/views/topBar/indexTopBar.vue')),
 		  default:()=>(import('@/views/home/Index.vue')),
-		  bottomBar:()=>(import('@/views/bottomBar/BottomBar.vue'))
+		  bottomBar:()=>(import('@/views/bottomBar/indexBtmBar.vue'))
 	  }
     },
 	{
@@ -30,7 +30,7 @@ const routerInit = new Router({
 	  name: 'shoppingcart',
 	  components: {
 		  default:()=>(import('@/views/home/shoppingCart.vue')),
-		   bottomBar:()=>(import('@/views/bottomBar/BottomBar.vue'))
+		   bottomBar:()=>(import('@/views/bottomBar/indexBtmBar.vue'))
 	  }
 	},
 	{
@@ -45,7 +45,7 @@ const routerInit = new Router({
 	  name: 'personalcenter',
 	  components: {
 		  default:()=>(import('@/views/home/PersonalCenter.vue')),
-		  bottomBar:()=>(import('@/views/bottomBar/BottomBar.vue'))
+		  bottomBar:()=>(import('@/views/bottomBar/indexBtmBar.vue'))
 	  }
 	},
 	{
@@ -61,7 +61,7 @@ const routerInit = new Router({
 	  name: 'orderList',
 	  components: {
 		  default:()=>(import('@/views/home/orderList.vue')),
-		  bottomBar:()=>(import('@/views/bottomBar/BottomBar.vue'))
+		  bottomBar:()=>(import('@/views/bottomBar/indexBtmBar.vue'))
 	  }
 	},
 	//登录后页面 End

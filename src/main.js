@@ -19,7 +19,12 @@ import {
 	Cell,
 	CellGroup,
 	Notify,
-	Toast
+	Toast,
+	GoodsAction,
+	GoodsActionIcon,
+	GoodsActionButton,
+	Sku,
+	ActionSheet 
 } from 'vant';
 Vue.use(Button)
 .use(Tabbar)
@@ -39,11 +44,11 @@ Vue.use(Button)
 .use(CellGroup)
 .use(Notify)
 .use(Toast)
-// .use(Tabbar)
-// .use(Tabbar)
-// .use(Tabbar)
-// .use(Tabbar)
-// .use(Tabbar)
+.use(GoodsAction)
+.use(GoodsActionIcon)
+.use(GoodsActionButton)
+.use(Sku)
+.use(ActionSheet)
 // .use(Tabbar)
 // .use(Tabbar)
 // .use(Tabbar)
