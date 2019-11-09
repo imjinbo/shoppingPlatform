@@ -1,5 +1,5 @@
 <template>
-	<div class="orderList">
+	<div class="orderList contents">
 		<topBar :titleText='titleText' :returnWhere='returnWhere'/>
 		<van-tabs v-model="active" animated>
 		  <van-tab title="全部">全部</van-tab>
@@ -10,7 +10,7 @@
 </template>
 
 <script>
-	import topBar from "@/components/topBar.vue"
+	import topBar from "@/views/topBar/topBar.vue"
 	export default{
 		name:"orderList",
 		components:{ topBar },

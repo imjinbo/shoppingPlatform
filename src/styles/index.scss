@@ -1,11 +1,12 @@
 @import "./variable.scss";
 html{
-	height: -webkit-fill-available;
+	background: #fff;
+	// height: -webkit-fill-available;
 }
 
 body{
 	box-sizing: border-box;
-	height: -webkit-fill-available;
+	// height: -webkit-fill-available;
 	margin: 0;
 	background-color: #ecefff;
 }
@@ -17,7 +18,12 @@ body{
 	background-color:#fff;
 	margin: 0 auto;
 	border: 1px solid #d3d3d3;
-	height: -webkit-fill-available;
+	// height: -webkit-fill-available;
+}
+
+.contents {
+	margin-top: 44px;
+	margin-bottom: 80px;
 }
 
 #bottomBar{

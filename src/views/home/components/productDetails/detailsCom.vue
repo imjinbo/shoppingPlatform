@@ -1,6 +1,6 @@
 <template>
 	<div class="imgCont clearfloat">
-		<img class="imgItem" :src='item.body.img_url' v-for='item in allData' :key='item.block_id' />
+		<img class="imgItem"  v-lazy='item.body.img_url' v-for='item in allData' :key='item.block_id' />
 		<!-- {{detailsData}} -->
 	</div>
 </template>

@@ -85,8 +85,10 @@
 					if(isLogin){
 						//login 
 						const urlJudge = this.$route.query.where;
-						const toWhere = urlJudge ? this.$router.push(urlJudge) : '/personalcenter';
-						this.$router.push(toWhere).catch(rej=>rej)
+						
+						const toWhere = urlJudge ? urlJudge : '/personalcenter';
+						this.$router.push(toWhere)
+						// .catch(rej=>rej)
 					}
 				})
 			},
@@ -102,7 +104,7 @@
 
 <style lang="scss" scoped>
 	.header {
-		margin-top: 10%;
+		padding-top: 10%;
 		text-align: center;
 		.h3 {
 			margin: 0;

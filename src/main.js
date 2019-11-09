@@ -24,7 +24,11 @@ import {
 	GoodsActionIcon,
 	GoodsActionButton,
 	Sku,
-	ActionSheet 
+	ActionSheet,
+	TreeSelect,
+	Image,
+	Dialog,
+	AddressList,
 } from 'vant';
 Vue.use(Button)
 .use(Tabbar)
@@ -49,10 +53,10 @@ Vue.use(Button)
 .use(GoodsActionButton)
 .use(Sku)
 .use(ActionSheet)
-// .use(Tabbar)
-// .use(Tabbar)
-// .use(Tabbar)
-// .use(Tabbar)
+.use(TreeSelect)
+.use(Image)
+.use(Dialog)
+.use(AddressList)
 // .use(Tabbar)
 // .use(Tabbar)
 

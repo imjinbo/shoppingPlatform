@@ -13,7 +13,7 @@
 			</div>
 			<van-swipe :autoplay="3000" indicator-color="white" >
 				<van-swipe-item v-for='item in swiperImg' :key='item.img_url'>
-					<img width="100%" :src="item.img_url"/>
+					<img width="100%" v-lazy="item.img_url"/>
 				</van-swipe-item>
 			</van-swipe>
 		</div>
@@ -141,8 +141,9 @@
 				this.product_info.desc =  productInfo.product_desc;
 				
 				// 价格  从 buyOption找到最低价格
-				let storePrice = allData.buy_option[0].name == '版本' ? allData.buy_option[0].list : allData.buy_option[1].list;
-				this.product_info.price = this.computPrice(storePrice);
+				// let storePrice = allData.buy_option[0].name == '版本' ? allData.buy_option[0].list : allData.buy_option[1].list;
+				this.product_info.price = this.computPrice(allData.goods_info);
+				
 				
 				// 带图的规格参数
 				this.product_info.sizeInfo = allData.goods_info[0].class_parameters.list.concat().filter(t=>{
@@ -165,7 +166,10 @@
 				return parseFloat(storePrice[0].price);
 			},
 			rtnPage(){
-				this.$router.go(-1)
+				// this.$router.push("/")
+				// debugger
+				// this.returnWhere ? this.$router.push(this.returnWhere) : 
+				this.$router.go(-1);
 			},
 			toPage(data){
 				this.$router.push(data)

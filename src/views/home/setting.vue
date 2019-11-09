@@ -6,8 +6,19 @@
 		  @click-left="tapReturn"
 		/>
 		<ul class="listUl">
-			<li v-if='loginOutShow' class="listLi">地址管理</li>
-			<li class="listLi">关于本项目</li>
+			<li v-if='loginOutShow' class="listLi" @click='$router.push("/addressCont")'>地址管理</li>
+			<li class="listLi" @click='userInfoShow = true'>关于本项目</li>
+			<van-dialog
+			  v-model="userInfoShow"
+			  title="关于本项目"
+			  closeOnClickOverlay
+			>
+			 <div class="userInfo">
+				 <p class="li1">此为个人演示项目，不做商业用途。</p>
+				 <p class="li2">Github地址：</p>
+				 <p class="li3">https://github.com/imjinbo/shoppingPlatform</p>
+			 </div>
+			</van-dialog>
 		</ul>
 		<van-row class="btnCont" type="flex" justify="space-around" v-if='loginOutShow'>
 		  <van-button span="6" type="info" @click='switchAccount'>切换账号</van-button>
@@ -22,7 +33,8 @@
 		name:"setting",
 		data(){
 			return {
-				loginOutShow:false
+				loginOutShow:false,
+				userInfoShow:false
 			}
 		},
 		mounted(){
@@ -80,11 +92,28 @@
 			}
 		}
 		.btnCont {
-			position: absolute;
+			position: fixed;
 			bottom: 30px;
 			width: 100%;
 			button{
 				border-radius: 4px;
+			}
+		}
+		.userInfo {
+			padding: 10px 24px;
+			font-size: 14px;
+			.li1{
+				
+			}
+			.li2{
+				margin-bottom: 0;
+				
+			}
+			.li3{
+				margin: 0;
+				font-size: 12px;
+				color:#969799;
+				margin-bottom: 12px;
 			}
 		}
 	}

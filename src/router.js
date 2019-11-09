@@ -12,6 +12,9 @@ const routerInit = new Router({
     {
       path: '/',
       name: 'index',
+	  meta:{
+	  		  title:'首页'
+	  },
       components: {
 		  topBar:()=>(import('@/views/topBar/indexTopBar.vue')),
 		  default:()=>(import('@/views/home/Index.vue')),
@@ -19,8 +22,31 @@ const routerInit = new Router({
 	  }
     },
 	{
+	  path: '/search',
+	  name: 'search',
+	  meta:{
+		  title:'搜索'
+	  },
+	  components: {
+		  default:()=>(import('@/views/home/search.vue'))
+	  }
+	},
+	{
+	  path: '/address',
+	  name: 'address',
+	  meta:{
+		  title:'地址管理'
+	  },
+	  components: {
+		  default:()=>(import('@/views/home/addressCont.vue'))
+	  }
+	},
+	{
 	  path: '/setting',
 	  name: 'setting',
+	  meta:{
+		  title:'设置'
+	  },
 	  components: {
 		  default:()=>(import('@/views/home/setting.vue'))
 	  }
@@ -28,14 +54,31 @@ const routerInit = new Router({
 	{
 	  path: '/shoppingcart',
 	  name: 'shoppingcart',
+	  meta:{
+		  title:'购物车'
+	  },
 	  components: {
 		  default:()=>(import('@/views/home/shoppingCart.vue')),
 		   bottomBar:()=>(import('@/views/bottomBar/indexBtmBar.vue'))
 	  }
 	},
 	{
+	  path: '/sort',
+	  name: 'sort',
+	  meta:{
+		  title:'分类'
+	  },
+	  components: {
+		  default:()=>(import('@/views/home/sort.vue')),
+		  bottomBar:()=>(import('@/views/bottomBar/indexBtmBar.vue'))
+	  }
+	},
+	{
 	  path: '/productDetails/:productId',
 	  name: 'productDetails',
+	  meta:{
+		  title:'商品详情'
+	  },
 	  components: {
 		  default:()=>(import('@/views/home/productDetails.vue')),
 	  }
@@ -43,6 +86,9 @@ const routerInit = new Router({
 	{
 	  path: '/personalcenter',
 	  name: 'personalcenter',
+	  meta:{
+			title:'个人中心'
+	  },
 	  components: {
 		  default:()=>(import('@/views/home/PersonalCenter.vue')),
 		  bottomBar:()=>(import('@/views/bottomBar/indexBtmBar.vue'))
@@ -51,6 +97,9 @@ const routerInit = new Router({
 	{
 	  path: '/login',
 	  name: 'login',
+	  meta:{
+		  title:'登录'
+	  },
 	  components: {
 		  default:()=>(import('@/views/home/login.vue')),
 	  }
@@ -59,6 +108,9 @@ const routerInit = new Router({
 	{
 	  path: '/orderList',
 	  name: 'orderList',
+	  meta:{
+		  title:'我的订单'
+	  },
 	  components: {
 		  default:()=>(import('@/views/home/orderList.vue')),
 		  bottomBar:()=>(import('@/views/bottomBar/indexBtmBar.vue'))
@@ -76,7 +128,7 @@ const routerInit = new Router({
 })
 
 //不需要登陆权限的页面
-const noPermission = ['index','personalcenter','login','404','shoppingcart','setting','search']
+const noPermission = ['index','personalcenter','login','404','shoppingcart','setting','search','sort']
 // ,'shoppingcart'
 routerInit.beforeEach((to,from,next)=>{
 	//在全局前置路由拦截器中判断是否已经登录，如果已登录就去获取用户信息
@@ -94,7 +146,9 @@ routerInit.beforeEach((to,from,next)=>{
 	
 	if(routerInit.options.routes.some(t=>{return to.name !== t.name})){
 		//has permission
+		
 		if(toLogin && userToken){
+			
 			//to login and has logged,go to the personal-centers
 			Notify({ 
 				color:"#fff",
@@ -111,22 +165,24 @@ routerInit.beforeEach((to,from,next)=>{
 			*	1.去的不是login页面
 			* 	2.没有登陆
 			*/ 
+			   // debugger
 		   if(userToken){
 			   //已登录，那么意味着两种权限都通过
 			   // const hasQuery = routerInit.currentRoute.query;
-			   // hasQuery ? next(`${hasQuery.where}`) :next()
+			   // hasQuery ? next(`/${hasQuery.where}`) :next()
 			   next()
 		   }else {
 			   //未登录查看是否是不需要登录权限的页面
-			   noPermission.some(t=>{return to.name === t}) ? next() : next(`/login?where=${to.name}`)
+			   const toPath = to.path.slice(1,to.path.length);
+			   noPermission.some(t=>{return to.name === t}) ? next() : next(`/login?where=${toPath}`)
 		   }
 		}
 		
 		
 	}else {
-		//not permission
+		// not permission
 		if(!userToken){
-			const strLogin = toLogin ? `/login` : `/login?where=${to.name}`;
+			const strLogin = toLogin ? `/login` : `/login?where=${to.path}`;
 			toLogin ? next() : next({path:strLogin});
 		}else {
 			Notify({ type: 'primary', message: '您已登录，但是没有此页面权限，抱歉！' });

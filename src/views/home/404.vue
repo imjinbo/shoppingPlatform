@@ -1,6 +1,6 @@
 <template>
 	
-		<div class="page404">
+		<div class="page404" >
 			<div  class='icon404'>
 				<van-icon name="warn-o" size='100px' color='rgb(237, 91, 0)'/>
 				<p class="line404">当前页面未完成或不存在</p>
@@ -15,6 +15,14 @@
 <script>
 	export default{
 		name:"page404",
+		data(){
+			return {
+				height:0
+			}
+		},
+		mounted() {
+			this.height = window.innerHeight
+		},
 		methods:{
 			rtnPrev:function(){
 				this.$router.go(-1);
@@ -27,7 +35,7 @@
 	.page404{
 		text-align:center;
 		.icon404 {
-			position: absolute;
+			position: fixed;
 			top: 44%;
 			left: 50%;
 			transform:translate(-50%,-50%)

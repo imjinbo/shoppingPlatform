@@ -1,6 +1,6 @@
 <template>
 	<div class="tab">
-		<van-row class='indexBar' type="flex" justify="space-between">
+		<van-row class='indexBar' type="flex" justify="space-between" @click='$router.push("/search")'>
 			<van-col span="2">
 				<Router-link to='/'>
 					<img :src="logo" />

@@ -1,6 +1,6 @@
 <template>
-	<van-nav-bar :title="titleText" left-text=" " left-arrow @click-left='tapLeft'>
-	  <van-icon name="search" slot="right" />
+	<van-nav-bar fixed class='topBar' :title="titleText" left-text=" " left-arrow @click-left='tapLeft'>
+	  <van-icon name="search" slot="right" @click='$router.push("/search")'/>
 	</van-nav-bar>
 </template>
 
@@ -20,5 +20,5 @@
 	}
 </script>
 
-<style>
+<style lang="scss" scoped>
 </style>
