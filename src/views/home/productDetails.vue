@@ -13,7 +13,7 @@
 			</div>
 			<van-swipe :autoplay="3000" indicator-color="white" >
 				<van-swipe-item v-for='item in swiperImg' :key='item.img_url'>
-					<img width="100%" v-lazy="item.img_url"/>
+					<img width="100%" :src="'http://' +item.img_url"/>
 				</van-swipe-item>
 			</van-swipe>
 		</div>

@@ -4,7 +4,7 @@
 		:key="item.ad_position_id" 
 		:width="computHeight(index)" 
 		:style="computThree(index)" 
-		v-lazy="item.img_url"/>
+		v-lazy="'http://' + item.img_url"/>
 	</div>
 </template>
 

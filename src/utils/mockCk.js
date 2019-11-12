@@ -1,15 +1,22 @@
 import Cookies from "js-cookie"
+/*
+* 由于build之后发现cookie不能用了，转而使用session吧
+*/
 
 export function setCookie(who,cookie){
-	return Cookies.set(who,cookie)
+	window.sessionStorage.setItem(who,cookie)
+	return cookie;
+	// return Cookies.set(who,cookie)
 }
 
 export function getCookie(who){
-	return Cookies.get(who)
+	return window.sessionStorage.getItem(who);
+	// return Cookies.get(who)
 }
 
 export function delCookie(who){
-	return Cookies.remove(who)
+	window.sessionStorage.removeItem(who)
+	// return Cookies.remove(who)
 }
 
 //时限性cookie

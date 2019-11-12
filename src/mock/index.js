@@ -2,6 +2,13 @@ import Mock from 'mockjs'
 import admin from "@/assets/admin.png"
 import drago from "@/assets/drago.png"
 
+//data
+import indexData from "./mockData/indexData"
+import proDetailsData from "./mockData/proDetailsData"
+import searchData from "./mockData/searchData"
+import sortData from "./mockData/sortData"
+import youLikeData from "./mockData/youLikeData"
+
 //配置step，拦截Ajax时候的行为
 Mock.setup({
     timeout: '400-1000'
@@ -37,6 +44,7 @@ var data = Mock.mock({
 		 id:'860356609'
 	 }
  }
+ 
  
  //登录
 const login = Mock.mock(
@@ -92,4 +100,30 @@ const getuserInfo = Mock.mock(
 	}
 )
 
- export default { login,getuserInfo }
+
+const getIndexData = Mock.mock(
+	'/indexData','post',req=>{
+		return indexData;
+	}
+)
+const getDetailsData = Mock.mock(
+	'/getDetailsData','post',req=>{
+		return proDetailsData;
+	}
+)
+const getSortList = Mock.mock(
+	'/getSortList','post',req=>{
+		return sortData;
+	}
+)
+const getYouLike = Mock.mock(
+	'/getYouLike','post',req=>{
+		return youLikeData;
+	}
+)
+const getSearchData = Mock.mock(
+	'/getSearchData','post',req=>{
+		return searchData;
+	}
+)
+ export default { login,getuserInfo,getIndexData,getDetailsData,getSortList,getYouLike,getSearchData }
