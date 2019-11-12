@@ -58,7 +58,7 @@
 </script>
 
 <style lang='scss' >
-	.contents {
+	/* .contents {
 		margin-bottom: 20px;
-	}
+	} */
 </style>

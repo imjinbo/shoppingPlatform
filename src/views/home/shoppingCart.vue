@@ -11,10 +11,10 @@
 		</div>
 		
 		<div class="youLike">
-			<img class="youLikeTitle" src="//i8.mifile.cn/b2c-mimall-media/e95ade2750a7fde92369b416c7d3176d.jpg"/>
+			<img class="youLikeTitle" src="http://i8.mifile.cn/b2c-mimall-media/e95ade2750a7fde92369b416c7d3176d.jpg"/>
 			<ul class="youLikeCont clearfloat">
 				<li class="youLiskItem" v-for='item in likeList' :key='item.name' @click='productDetail(item.action.path)'>
-					<img v-lazy="item.image_url"/>
+					<img v-lazy="'http://'+item.image_url"/>
 					<div class="likeTextCont">
 						<p class="likeTitle">{{item.name}}</p>
 						<p class="likePrice">¥{{item.price}}

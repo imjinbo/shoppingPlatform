@@ -2,7 +2,7 @@
 	<div class="liList">
 		<van-row type="flex" justify="space-between">
 			<div v-for="(item,index) in list" :key="item.ad_position_id" class="vanRowDiv" @click="productDetail(item.product_id)">
-				<img width="100%" v-lazy="item.img_url" />
+				<img width="100%" v-lazy="'http://'+item.img_url" />
 				<h6 class="h6Sty">{{item.product_name}}</h6>
 				<p class="p1Sty">{{item.product_brief}}</p>
 				<p class="p2Sty">¥{{item.product_org_price}}起</p>

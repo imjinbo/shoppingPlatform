@@ -13,7 +13,7 @@
 			</div>
 			<van-swipe :autoplay="3000" indicator-color="white" >
 				<van-swipe-item v-for='item in swiperImg' :key='item.img_url'>
-					<img width="100%" v-lazy="item.img_url"/>
+					<img width="100%" v-lazy="'http://'+item.img_url"/>
 				</van-swipe-item>
 			</van-swipe>
 		</div>
@@ -45,7 +45,7 @@
 			<!-- 商品的基本信息描述 -->
 			<div class='parmams gray'>
 				<!-- 商品规格选择 -->
-					<sizeInfo/>
+					<sizeInfo :sizeInfoData='sizeInfoData' :buyOptionData='buyOptionData'/>
 				<!-- 收货地址 -->
 					<selectAddress />
 				<!-- 服务说明 -->
@@ -116,7 +116,9 @@
 					sizeInfo:[],
 					assess:{},
 					details:[]
-				}
+				},
+				sizeInfoData:[],
+				buyOptionData:[]
 			}
 		},
 		mounted(){
@@ -154,6 +156,13 @@
 				
 				//图文详情
 				this.product_info.details = allData.goods_tpl_datas[productInfo.page_id].sections.concat();
+				
+				//商品sku
+				this.sizeInfoData = allData.goods_info.concat();
+				
+				//sku类型
+				this.buyOptionData = allData.buy_option.concat();
+				
 			})
 			
 		},

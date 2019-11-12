@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="imgCont" v-for='item in allData.items' :key='item.img_url'>
-			<img width='100%' :src="item.img_url"/>
+			<img width='100%' :src="'http://'+item.img_url"/>
 		</div>
 	</div>
 </template>

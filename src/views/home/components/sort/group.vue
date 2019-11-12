@@ -1,7 +1,7 @@
 <template>
 	<div class="groupCont clearfloat">
 		<div class="groupItem" v-for='item in allData.items' :key='item.product_name' @click='productDetail(item.action.path)'>
-			<img v-lazy="item.img_url"/>
+			<img v-lazy="'http://'+item.img_url"/>
 			<p>{{item.product_name}}</p>
 		</div>
 	</div>

@@ -12,7 +12,7 @@
 			<span class="title">热门搜索</span>
 			<img 
 			class="titleImg" 
-			:src='item.img_url' 
+			:src='"http://"+item.img_url' 
 			v-for='item in adList' 
 			:key="item.id" 
 			@click='$router.push("productDetails/" + item.action.path)'

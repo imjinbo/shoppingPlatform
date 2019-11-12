@@ -2,18 +2,18 @@
 	<div>
 		<div class="parmamsSize" @click='skuShow = true'>
 			<p>已选</p>
-			<p>Redmi Note 8 4GB+64GB 皓月白 x 1</p>
+			<p>{{selName}}</p>
 			<van-icon name="arrow" class='parmamsSizeIcon'/>
 		</div>
 		
 		<van-sku
 		  v-model="skuShow"
 		  :sku="sku"
-		  	:goods="goods"
-		  	:goods-id="goodsId"
-		  	:hide-stock="sku.hide_stock"
+			:goods="goods"
+			:goods-id="goodsId"
+			:hide-stock="sku.hide_stock"
 			:message-config="msgConfig"
-			:close-on-click-overlay	= true
+			@sku-selected='select'
 		/>
 	</div>
 </template>
@@ -22,68 +22,75 @@
 	export default{
 		name:"sizeInfo",
 		props:{
-			// skuShow:Boolean
+			sizeInfoData:Array,
+			buyOptionData:Array
 		},
 		data(){
 			return {
+				selName:'请选择商品规格',
 				msgConfig:{},
 				goodsId:"12",
 				skuShow:false,
 				sku:{
-					tree: [
-					    {
-					      k: '颜色', // skuKeyName：规格类目名称
-					      v: [
-					        {
-					          id: '30349', // skuValueId：规格值 id
-					          name: '红色', // skuValueName：规格值名称
-					          imgUrl: 'https://img.yzcdn.cn/2.jpg', // 规格类目图片，只有第一个规格类目可以定义图片
-					          previewImgUrl: 'https://img.yzcdn.cn/1p.jpg', // 用于预览显示的规格类目图片
-					        },
-					        {
-					          id: '1215',
-					          name: '蓝色',
-					          imgUrl: 'https://img.yzcdn.cn/2.jpg',
-					          previewImgUrl: 'https://img.yzcdn.cn/2.jpg',
-					        }
-					      ],
-					      k_s: 's1' // skuKeyStr：sku 组合列表（下方 list）中当前类目对应的 key 值，value 值会是从属于当前类目的一个规格值 id
-					    }
-					  ],
-					  // 所有 sku 的组合列表，比如红色、M 码为一个 sku 组合，红色、S 码为另一个组合
-					  list: [
-					    {
-					      id: 2259, // skuId，下单时后端需要
-					      price: 100, // 价格（单位分）
-					      s1: '1215', // 规格类目 k_s 为 s1 的对应规格值 id
-					      s2: '1193', // 规格类目 k_s 为 s2 的对应规格值 id
-					      s3: '0', // 最多包含3个规格值，为0表示不存在该规格
-					      stock_num: 110 // 当前 sku 组合对应的库存
-					    }
-					  ],
-					  price: '1.00', // 默认价格（单位元）
-					  stock_num: 227, // 商品总库存
-					  collection_id: 2261, // 无规格商品 skuId 取 collection_id，否则取所选 sku 组合对应的 id
-					  none_sku: false, // 是否无规格商品
-					  messages: [
-					    {
-					      // 商品留言
-					      datetime: '0', // 留言类型为 time 时，是否含日期。'1' 表示包含
-					      multiple: '0', // 留言类型为 text 时，是否多行文本。'1' 表示多行
-					      name: '留言', // 留言名称
-					      type: 'text', // 留言类型，可选: id_no（身份证）, text, tel, date, time, email
-					      required: '1', // 是否必填 '1' 表示必填
-					      placeholder: '' // 可选值，占位文本
-					    }
-					  ],
-					  hide_stock: false // 是否隐藏剩余库存
+					tree: [],
+					list: [],
+				    price: '0', // 默认价格（单位元）
+				    stock_num: 227, // 商品总库存
+				    collection_id: 2261, // 无规格商品 
+					none_sku: false, // 是否无规格商品
+					hide_stock: false // 是否隐藏剩余库存
 				},
 				goods: {
 				  // 商品标题
 				  title: '测试商品',
 				  // 默认商品 sku 缩略图
-				  picture: 'https://img.yzcdn.cn/2.jpg'
+				  picture: ''
 				}
+			}
+		},
+		watch:{
+			sizeInfoData(news,old){
+				this.goods.picture = news[0].img_url;
+			},
+			buyOptionData(news,old){
+				// 商品购买的sku分类
+				news.forEach((t,i)=>{
+					let listData = [];
+					let list2Arr = [];
+					//二级
+					t.list.forEach((ti,ii)=>{
+						listData.push({
+							id:ti.prop_value_id + i,
+							name:ti.name
+						})
+						//内部的价格
+						let may = parseInt(ti.price.length != 0 ? ti.price.split('元')[0] : 0)*100;
+						this.sku.list.push({
+							id: ti.prop_value_id,
+							price: may,
+							stock_num:Number(JSON.stringify(ti.prop_value_id).slice(0,2)),
+							s1:ti.prop_value_id,
+							s2:ti.prop_value_id +ii + i,
+						})
+					})
+					this.sku.tree.push({
+						k:t.name,
+						v:listData,
+						k_s: i === 0 ? 's1' : 's2'
+					})
+				})
+			}
+				
+		},
+		methods:{
+			select(data){
+				if(this.sku.tree.length === 1){
+					this.selName = data.skuValue.name ;
+				}else{
+					Object.keys(data.selectedSku).some(t=>{return data.selectedSku[t].length == 0}) 
+					? (this.selName = data.skuValue.name) : (this.selName += data.skuValue.name);
+				}
+				Object.keys(data.selectedSku).every(t=>{return data.selectedSku[t].length == 0}) && (this.selName = '请选择商品规格');
 			}
 		}
 	}
