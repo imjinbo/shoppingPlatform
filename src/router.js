@@ -116,6 +116,17 @@ const routerInit = new Router({
 		  bottomBar:()=>(import('@/views/bottomBar/indexBtmBar.vue'))
 	  }
 	},
+	{
+	  path: '/order',
+	  name: 'order',
+	  meta:{
+		  title:'确认订单'
+	  },
+	  components: {
+		  default:()=>(import('@/views/home/order.vue'))
+	  }
+	},
+	
 	//登录后页面 End
 	{
 	  path: '*',

@@ -28,7 +28,9 @@ import {
 	TreeSelect,
 	Image,
 	Dialog,
+	Card,
 	AddressList,
+	CountDown,
 } from 'vant';
 Vue.use(Button)
 .use(Tabbar)
@@ -57,8 +59,8 @@ Vue.use(Button)
 .use(Image)
 .use(Dialog)
 .use(AddressList)
-// .use(Tabbar)
-// .use(Tabbar)
+.use(Card)
+.use(CountDown)
 
 
 import "./styles/index.scss" //base Css 自定义css，可以覆盖muse-ui的样式

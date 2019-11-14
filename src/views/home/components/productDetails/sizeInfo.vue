@@ -8,12 +8,15 @@
 		
 		<van-sku
 		  v-model="skuShow"
+		  :close-on-click-overlay=true
 		  :sku="sku"
 			:goods="goods"
 			:goods-id="goodsId"
 			:hide-stock="sku.hide_stock"
 			:message-config="msgConfig"
+			:show-add-cart-btn=false
 			@sku-selected='select'
+			@buy-clicked='buyFn'
 		/>
 	</div>
 </template>
@@ -23,7 +26,8 @@
 		name:"sizeInfo",
 		props:{
 			sizeInfoData:Array,
-			buyOptionData:Array
+			buyOptionData:Array,
+			sizeShow:Boolean
 		},
 		data(){
 			return {
@@ -34,7 +38,7 @@
 				sku:{
 					tree: [],
 					list: [],
-				    price: '0', // 默认价格（单位元）
+				    price: '请选择', // 默认价格（单位元）
 				    stock_num: 227, // 商品总库存
 				    collection_id: 2261, // 无规格商品 
 					none_sku: false, // 是否无规格商品
@@ -79,6 +83,12 @@
 						k_s: i === 0 ? 's1' : 's2'
 					})
 				})
+			},
+			sizeShow(news,old){
+				this.skuShow = news;
+			},
+			skuShow(news,old){
+				this.$emit('skuShow',news)
 			}
 				
 		},
@@ -91,6 +101,9 @@
 					? (this.selName = data.skuValue.name) : (this.selName += data.skuValue.name);
 				}
 				Object.keys(data.selectedSku).every(t=>{return data.selectedSku[t].length == 0}) && (this.selName = '请选择商品规格');
+			},
+			buyFn(data){
+				this.$emit('buySendFn',data)
 			}
 		}
 	}

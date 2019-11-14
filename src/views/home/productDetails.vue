@@ -8,7 +8,7 @@
 					color='rgba(0,0,0,.6)' 
 					round type="info" 
 					icon='arrow-left'
-					@click='rtnPage'>
+					@click='$router.go(-1)'>
 				</van-button>
 			</div>
 			<van-swipe :autoplay="3000" indicator-color="white" >
@@ -45,7 +45,12 @@
 			<!-- 商品的基本信息描述 -->
 			<div class='parmams gray'>
 				<!-- 商品规格选择 -->
-					<sizeInfo :sizeInfoData='sizeInfoData' :buyOptionData='buyOptionData'/>
+					<sizeInfo 
+					:sizeInfoData='sizeInfoData' 
+					:buyOptionData='buyOptionData' 
+					:sizeShow='sizeShow'
+					@buySendFn='buySendFn'
+					@skuShow='skuShowFn'/>
 				<!-- 收货地址 -->
 					<selectAddress />
 				<!-- 服务说明 -->
@@ -78,13 +83,30 @@
 		<!-- 底部悬浮 -->
 		<div>
 			<van-goods-action>
-			  <van-goods-action-icon icon="wap-home-o" text="首页" @click='toPage("/")'/>
-			  <van-goods-action-icon icon="cart-o" text="购物车" @click='toPage("/shoppingCart")'/>
+			  <van-goods-action-icon icon="wap-home-o" text="首页" @click='$router.push("/")'/>
+			  <van-goods-action-icon icon="cart-o" text="购物车" @click='$router.push("/shoppingCart")'/>
 			  <!-- <van-goods-action-button type="warning" text="加入购物车" @click="onClickButton" /> -->
-			  <van-goods-action-button type="danger" text="立即购买"/>
+			  <van-goods-action-button type="danger" text="立即购买" @click="buyFn"/>
 			</van-goods-action>
 		</div>
-		
+		<van-dialog
+		  v-model="dialogShow"
+		  class='dialog'
+		  title="提示信息"
+		  show-cancel-button
+		  :showCancelButton=false
+		  @confirm='finish'
+		>
+			<p>{{dialogMessage}}</p>
+			页面将在
+			<van-count-down
+				class='dialogMes'
+				format="ss"
+				:time="4000"
+				@finish='finish'
+			  />
+			  后返回
+		</van-dialog>
 	</div>
 </template>
 
@@ -118,7 +140,11 @@
 					details:[]
 				},
 				sizeInfoData:[],
-				buyOptionData:[]
+				buyOptionData:[],
+				selectDet:{},
+				sizeShow:false,
+				dialogShow:false,
+				dialogMessage:''
 			}
 		},
 		mounted(){
@@ -128,12 +154,20 @@
 				webp: 1,
 				commodity_id:this.productId
 			}).then(res=>{
+				
+				if(!allData){
+					this.dialogMessage = res.data.description;
+					this.dialogShow = true;
+					return false;
+				}
+				
 				const allData = res.data.data;
 				const productInfo = allData.product_info;
 				
 				// console.log(allData)
 				// 轮播图
-				this.swiperImg = allData.goods_info[0].gallery_v3.concat();
+				let swipers = allData.goods_info[0].gallery_v3;
+				this.swiperImg = swipers ? swipers.concat() : [];
 				// console.log(this.swiperImg)
 				// 双11的logo
 				this.product_info.double11 = productInfo.price_tips.img_url;
@@ -148,14 +182,21 @@
 				
 				
 				// 带图的规格参数
-				this.product_info.sizeInfo = allData.goods_info[0].class_parameters.list.concat().filter(t=>{
+				let listHas = allData.goods_info[0].class_parameters.list;
+				this.product_info.sizeInfo = listHas && listHas.concat().filter(t=>{
 					return t.is_page_show
 				})
 				//评论
 				this.product_info.assess = allData.goods_share_datas;
 				
 				//图文详情
-				this.product_info.details = allData.goods_tpl_datas[productInfo.page_id].sections.concat();
+				
+				if(allData.goods_tpl_datas){
+					this.product_info.details = allData.goods_tpl_datas[productInfo.page_id].sections.concat();
+				}else {
+					let tabsView = allData.view_content.descTabsView.descTabsView;
+					this.product_info.details = tabsView[0].tabContent.concat(tabsView[1].tabContent)
+				}
 				
 				//商品sku
 				this.sizeInfoData = allData.goods_info.concat();
@@ -174,14 +215,36 @@
 				})
 				return parseFloat(storePrice[0].price);
 			},
-			rtnPage(){
-				// this.$router.push("/")
-				// debugger
-				// this.returnWhere ? this.$router.push(this.returnWhere) : 
-				this.$router.go(-1);
+			buyFn(even){
+				/*
+				* 1. 若delect中没有数据，那么就触发选择规格
+				* 2. 传递sku并跳转,并且传递已选择的商品详情
+				* 3. 在这里由于数据过多，而放到了session中。
+				* 4. 正式场景中最终付款将由后台来判断商品是否有效
+				* 5. 就不往下写了
+				* */
+				if(!this.selectDet.goodsId){
+					this.sizeShow = true
+					return ;
+				}
+				
+				let sendData = {
+					selectData:this.selectDet.selectedSkuComb,
+					allData:this.sizeInfoData
+				}
+				// sessionStorage.setItem('sendData',JSON.stringify(sendData))
+				// this.$router.push('/order');
 			},
-			toPage(data){
-				this.$router.push(data)
+			buySendFn(data){
+				this.selectDet = Object.assign(data);
+				this.buyFn('下级事件')
+			},
+			skuShowFn(cnt){
+				//动态改变父级的show状态
+				this.sizeShow = cnt
+			},
+			finish(){
+				this.$router.go(-1)
 			}
 		}
 	}
@@ -191,6 +254,14 @@
 	.gray{
 		background: #fafafa;
 	}
+	.dialog {
+		text-align: center;
+		.dialogMes {
+			display: inline-block;
+			margin-bottom: 20px;
+		}	
+	}
+	
 	.productDetails {
 		.swiperCont {
 			position: relative;
