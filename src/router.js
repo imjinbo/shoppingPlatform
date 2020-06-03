@@ -139,7 +139,7 @@ const routerInit = new Router({
 })
 
 //不需要登陆权限的页面
-const noPermission = ['index','personalcenter','login','404','shoppingcart','setting','search','sort']
+const noPermission = ['index','personalcenter','login','404','shoppingcart','setting','search','sort','productDetails']
 // ,'shoppingcart'
 routerInit.beforeEach((to,from,next)=>{
 	//在全局前置路由拦截器中判断是否已经登录，如果已登录就去获取用户信息

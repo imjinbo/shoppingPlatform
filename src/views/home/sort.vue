@@ -17,6 +17,7 @@
 	import topBar from "@/views/topBar/topBar.vue"
 	import rightCont from "./components/sort/rightCont.vue"
 	import { getSortList } from "@/api/others"
+	import sortData from "@/assets/sortData.json"
 	
 	export default {
 		name:"sort",
@@ -34,10 +35,13 @@
 		},
 		mounted(){
 			this.heights = window.innerHeight - 96;
-			getSortList().then(res=>{
+			// getSortList().then(res=>{
+				
 				let allData = [];
 				let chilData = [];
-				res.data.data.forEach((t,i)=>{
+				
+				sortData.data.forEach((t,i)=>{
+				// res.data.data.forEach((t,i)=>{
 					allData.push({
 						text:t.category_name,
 						dot:false,
@@ -51,7 +55,7 @@
 				})
 				this.list = allData;
 				this.rightData = chilData.concat();
-			})
+			// })
 		}
 		
 	}
