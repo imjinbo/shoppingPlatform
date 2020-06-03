@@ -18,7 +18,6 @@
 		},
 		watch:{
 			'detailsData'(news,old){
-				
 				if(news[0].viewType == "plainView"){
 					let sendArr = [];
 					
@@ -28,12 +27,25 @@
 							img_url:t.plainView.img
 						})
 					})
-					this.allData = sendArr.concat();
+					this.allData = sendArr;
 					
 				}else {
-					this.allData = this.detailsData.filter(t=>{
-						return t.view_type === "image_w_1080" || t.view_type === "video_view"
+					let arr  = [],sendData = [];
+					let showData = this.detailsData.find(t=>{return t.view_type === "product_info_tab"})
+					let showData2 = showData.body.items.map(t=>{return t.page_info;});
+					showData2.forEach((t,i)=>{if(i!=0){return}; arr = arr.concat(t)})
+					arr.forEach((t,i)=>{
+						try{
+							t.body.img_url.split('https://')[1];
+						}catch(e){
+							return false;
+						}
+						sendData.push({
+							block_id:i,
+							img_url:t.body.img_url.split('https://')[1]
+						})
 					})
+					this.allData = sendData;
 				}
 				
 			}
