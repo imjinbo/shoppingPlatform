@@ -30,6 +30,8 @@
 <script>
 	import topBar from "@/views/topBar/topBar.vue"
 	import { getYourLike } from "@/api/others"
+	import cartData from "@/assets/cartData.json"
+	
 	export default {
 		name:"shoppingCart",
 		components:{
@@ -41,9 +43,10 @@
 			}
 		},
 		mounted() {
-			getYourLike().then(res=>{
-				this.likeList = res.data.data.recom_list;
-			})
+			// getYourLike().then(res=>{
+				this.likeList = cartData.data.recom_list;
+				// this.likeList = res.data.data.recom_list;
+			// })
 		},
 		methods:{
 			productDetail(productId){

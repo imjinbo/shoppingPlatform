@@ -25,6 +25,7 @@
 	import Swiper from '@/components/Swiper.vue'
 	import indexCont from './components/index/indexCont.vue'
 	import { getIndexData } from '@/api/index'
+	import indexData from "@/assets/indexData.json"
 	
 	export default {
 		name: "indexTabs",
@@ -44,13 +45,16 @@
 		},
 		mounted(){
 			const _this = this;
-			getIndexData().then(res=>{
+			// getIndexData().then(res=>{
 				this.loading = false;
 				//获取到远程数据
 				//1.先将tabs标题展示出来
 				//2.获取到当前的轮播图并传递给子组件
 				//3.之后将剩余的当前页面的数据传递给indexCont组件
-				const allData = res.data;
+				
+				// 使用假数据
+				const allData = indexData;
+				// const allData = res.data;
 				allData.data.tabs.forEach(item=>{
 					_this.vanTabs.push({
 						title:item.name,
@@ -71,7 +75,7 @@
 				//在此直接进行concat，实现深拷贝
 				allData.data.data.sections.shift()
 				_this.indexContData = allData.data.data.sections.concat()
-			})
+			// })
 		}
 	}
 </script>

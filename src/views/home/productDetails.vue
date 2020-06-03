@@ -11,15 +11,12 @@
 					@click='$router.go(-1)'>
 				</van-button>
 			</div>
-			<van-swipe :autoplay="3000" indicator-color="white" >
+			<van-swipe :autoplay="3000" indicator-color="white" class='vanSwiper'>
 				<van-swipe-item v-for='item in swiperImg' :key='item.img_url'>
 					<img width="100%" v-lazy="'http://'+item.img_url"/>
 				</van-swipe-item>
 			</van-swipe>
 		</div>
-		<van-skeleton title :row="20" :loading="loading">
-			<!-- 骨骼框架预展示 -->
-		</van-skeleton>
 		<!-- 轮播下的价格 -->
 		<!-- <div>2699</div> -->
 		
@@ -119,6 +116,7 @@
 	import sizeInfo from "./components/productDetails/sizeInfo.vue"
 	import detailsCom from "./components/productDetails/detailsCom.vue"
 	import { getProductDetails } from "@/api/products"
+	import productData from "@/assets/productData.json"
 	
 	export default {
 		name :'productDetails',
@@ -152,13 +150,15 @@
 			}
 		},
 		mounted(){
-			getProductDetails({
-				client_id: this.productId,
-				channel_id: '',
-				webp: 1,
-				commodity_id:this.productId
-			}).then(res=>{
-				const allData = res.data.data;
+			// getProductDetails({
+			// 	client_id: this.productId,
+			// 	channel_id: '',
+			// 	webp: 1,
+			// 	commodity_id:this.productId
+			// }).then(res=>{
+				
+				const allData = productData.data;
+				// const allData = res.data.data;
 				if(!allData){
 					this.dialogMessage = res.data.description;
 					this.dialogShow = true;
@@ -207,7 +207,7 @@
 				//sku类型
 				this.buyOptionData = allData.buy_option.concat();
 				this.loading = false;
-			})
+			// })
 			
 		},
 		methods:{
@@ -277,6 +277,9 @@
 				.swiperBtn {
 					min-width: 16px;
 				}
+			}
+			.vanSwiper {
+				height: 62vh;
 			}
 		}
 		.content {
