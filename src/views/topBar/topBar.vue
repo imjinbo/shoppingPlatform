@@ -7,6 +7,7 @@
 <script>
 	export default {
 		name:"topBar",
+		
 		props:{
 			titleText:String,
 			returnWhere:String
