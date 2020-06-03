@@ -84,12 +84,12 @@
 		
 		<!-- 底部悬浮 -->
 		<div>
-				<van-goods-action  class="fixBottom">
-				  <van-goods-action-icon icon="wap-home-o" text="首页" @click='$router.push("/")'/>
-				  <van-goods-action-icon icon="cart-o" text="购物车" @click='$router.push("/shoppingCart")'/>
-				  <!-- <van-goods-action-button type="warning" text="加入购物车" @click="onClickButton" /> -->
-				  <van-goods-action-button type="danger" text="立即购买" @click="buyFn"/>
-				</van-goods-action>
+			<van-goods-action  class="fixBottom">
+			  <van-goods-action-icon icon="wap-home-o" text="首页" @click='$router.push("/")'/>
+			  <van-goods-action-icon icon="cart-o" text="购物车" @click='$router.push("/shoppingCart")'/>
+			  <!-- <van-goods-action-button type="warning" text="加入购物车" @click="onClickButton" /> -->
+			  <van-goods-action-button type="danger" text="立即购买" @click="buyFn"/>
+			</van-goods-action>
 		</div>
 		
 		<van-dialog
