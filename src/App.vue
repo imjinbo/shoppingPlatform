@@ -1,11 +1,14 @@
 <template>
 	<div id="app">
-		<!-- <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">Absout</router-link>
-    </div> -->
+	
 		<router-view name='topBar' />
-		<router-view />
+		
+		<transition name="fade">
+			<keep-alive include='indexTabs,sort,shoppingCart'>
+				<router-view class="middle"/>
+			</keep-alive>
+		</transition>
+		
 		<router-view name='bottomBar' />
 	</div>
 
@@ -51,7 +54,19 @@
 	}
 </script>
 <style scoped>
-	#app{
-		border:none;
+	#app {
+		border: none;
+	}
+	.middle {
+		position: relative;
+		 transition: all .1s;
+		 right: 0;
+		 left: 0;
+	}
+	.fade-enter-active {
+		left:8px;
+	}
+	.fade-enter /* .fade-leave-active below version 2.1.8 */ {
+	 
 	}
 </style>

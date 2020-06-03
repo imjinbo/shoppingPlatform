@@ -1,5 +1,4 @@
 <template>
-	
 		<div class="page404" >
 			<div  class='icon404'>
 				<van-icon name="warn-o" size='100px' color='rgb(237, 91, 0)'/>
@@ -33,6 +32,7 @@
 
 <style lang="scss" scoped>
 	.page404{
+		z-index: 10;
 		text-align:center;
 		.icon404 {
 			position: fixed;

@@ -229,8 +229,13 @@
 	}
 	.orderCont {
 		.order_mine {
+			transition: all .3s;
 			padding: 2% 4%;
+			&:active{
+				opacity: 0.5;
+			}
 		}
+		
 		.DST {
 			.DST_item {
 				margin: 18px 0;

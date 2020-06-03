@@ -17,11 +17,13 @@
 				</van-swipe-item>
 			</van-swipe>
 		</div>
-		
+		<van-skeleton title :row="20" :loading="loading">
+			<!-- 骨骼框架预展示 -->
+		</van-skeleton>
 		<!-- 轮播下的价格 -->
 		<!-- <div>2699</div> -->
 		
-		<div class="content">
+		<div class="content" v-show='!loading'>
 			<!-- 商品基本简述 -->
 			<div class="brief">
 				<div class="briefTitle clearfloat">
@@ -82,13 +84,14 @@
 		
 		<!-- 底部悬浮 -->
 		<div>
-			<van-goods-action>
-			  <van-goods-action-icon icon="wap-home-o" text="首页" @click='$router.push("/")'/>
-			  <van-goods-action-icon icon="cart-o" text="购物车" @click='$router.push("/shoppingCart")'/>
-			  <!-- <van-goods-action-button type="warning" text="加入购物车" @click="onClickButton" /> -->
-			  <van-goods-action-button type="danger" text="立即购买" @click="buyFn"/>
-			</van-goods-action>
+				<van-goods-action  class="fixBottom">
+				  <van-goods-action-icon icon="wap-home-o" text="首页" @click='$router.push("/")'/>
+				  <van-goods-action-icon icon="cart-o" text="购物车" @click='$router.push("/shoppingCart")'/>
+				  <!-- <van-goods-action-button type="warning" text="加入购物车" @click="onClickButton" /> -->
+				  <van-goods-action-button type="danger" text="立即购买" @click="buyFn"/>
+				</van-goods-action>
 		</div>
+		
 		<van-dialog
 		  v-model="dialogShow"
 		  class='dialog'
@@ -128,6 +131,7 @@
 		data(){
 			let productId = this.$route.params.productId
 			return {
+				loading:true,
 				productId:productId,
 				swiperImg:[],
 				product_info:{
@@ -154,14 +158,13 @@
 				webp: 1,
 				commodity_id:this.productId
 			}).then(res=>{
-				
+				const allData = res.data.data;
 				if(!allData){
 					this.dialogMessage = res.data.description;
 					this.dialogShow = true;
 					return false;
 				}
 				
-				const allData = res.data.data;
 				const productInfo = allData.product_info;
 				
 				// console.log(allData)
@@ -203,7 +206,7 @@
 				
 				//sku类型
 				this.buyOptionData = allData.buy_option.concat();
-				
+				this.loading = false;
 			})
 			
 		},
@@ -267,7 +270,7 @@
 			position: relative;
 			min-height: 22%;
 			.swiperBtnCont {
-				position: absolute;
+				position: fixed;
 				top: 10px;
 				left: 20px;
 				z-index: 10;
@@ -340,6 +343,7 @@
 				margin: 10px;
 				text-align: center;
 			}
+			
 		}
 	}
 </style>

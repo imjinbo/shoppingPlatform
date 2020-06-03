@@ -52,7 +52,7 @@
 			font-weight: 400;
 		}
 		.p1Sty,.p2Sty{
-			font-size: 12px;
+			font-size: 3vw;
 			margin: 0;
 			line-height: 18px;
 		}
@@ -61,7 +61,7 @@
 		}
 		.p2Sty {
 			color: #ea625b;
-			font-size: 14px;
+			font-size: 4vw;
 		}
 		.btnSty {
 			margin-top: 2px;

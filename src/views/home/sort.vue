@@ -1,6 +1,6 @@
 <template>
 	<div class="contents">
-		<topBar titleText="分类"/>
+			<topBar titleText="分类"/>
 		<van-tree-select
 		  :height="heights"
 		  :items="list"
@@ -61,4 +61,5 @@
 	/* .contents {
 		margin-bottom: 20px;
 	} */
+	
 </style>
